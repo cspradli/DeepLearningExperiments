@@ -41,6 +41,26 @@ for image, label in test_dataset.take(1):
     break
 image = image.numpy().reshape((28,28))
 
+#Matplot stuff to show what's going on
+plt.figure()
+plt.imshow(image, cmap= plt.cm.binary)
+plt.colorbar()
+plt.grid(False)
+plt.show()
+
+plt.figure(figsize=(10,10))
+i = 0
+for (image, label) in test_dataset.take(25):
+    image = image.numpy().reshape((28,28))
+    plt.subplot(5,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(image, cmap=plt.cm.binary)
+    plt.xlabel(class_names[label])
+    i += 1
+plt.show()
+
 model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu, input_shape=(28, 28, 1)),
     tf.keras.layers.MaxPooling2D((2,2), strides=2),
@@ -72,3 +92,34 @@ for test_images, test_labels in test_dataset.take(1):
 predictions.shape
 np.argmax(predictions[0])
 test_labels[0]
+
+def plot_image(i, predictions_array, true_labels, images):
+  predictions_array, true_label, img = predictions_array[i], true_labels[i], images[i]
+  plt.grid(False)
+  plt.xticks([])
+  plt.yticks([])
+  
+  plt.imshow(img[...,0], cmap=plt.cm.binary)
+
+  predicted_label = np.argmax(predictions_array)
+  if predicted_label == true_label:
+    color = 'blue'
+  else:
+    color = 'red'
+  
+  plt.xlabel("{} {:2.0f}% ({})".format(class_names[predicted_label],
+                                100*np.max(predictions_array),
+                                class_names[true_label]),
+                                color=color)
+
+def plot_value_array(i, predictions_array, true_label):
+  predictions_array, true_label = predictions_array[i], true_label[i]
+  plt.grid(False)
+  plt.xticks([])
+  plt.yticks([])
+  thisplot = plt.bar(range(10), predictions_array, color="#777777")
+  plt.ylim([0, 1])
+  predicted_label = np.argmax(predictions_array)
+  
+  thisplot[predicted_label].set_color('red')
+  thisplot[true_label].set_color('blue')
