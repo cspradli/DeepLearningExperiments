@@ -63,3 +63,12 @@ model.fit(train_dataset, epochs=10, steps_per_epoch=math.ceil(num_train_examples
 
 test_loss, test_accuracy = model.evaluate(test_dataset, steps=math.ceil(num_test_examples/32))
 print('Accuracy on test dataset:', test_accuracy)
+
+for test_images, test_labels in test_dataset.take(1):
+  test_images = test_images.numpy()
+  test_labels = test_labels.numpy()
+  predictions = model.predict(test_images)
+
+predictions.shape
+np.argmax(predictions[0])
+test_labels[0]
