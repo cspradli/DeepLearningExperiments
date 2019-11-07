@@ -28,3 +28,16 @@ def display_data(X, example_width=None, figsize=(10,10)):
                         cmap='Greys', extent=[0,1,0,1])
         ax.axis('off')
 
+def predict(Theta1, Theta2, X):
+    """
+        Predict the label of an input given a trained neural net
+        Outputs the predicted label of X given the trained weights of a nnet (T1, T2)
+    """
+    return
+
+def debug_init_weights(fan_out, fan_in):
+    """
+
+    """
+    return
+
