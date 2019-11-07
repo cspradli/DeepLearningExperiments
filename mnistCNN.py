@@ -99,7 +99,7 @@ def plot_image(i, predictions_array, true_labels, images):
   plt.xticks([])
   plt.yticks([])
   
-  plt.imshow(img[...,0], cmap= plt.cm.binary)
+  plt.imshow(img[...,0], cmap = plt.cm.binary)
 
   predicted_label = np.argmax(predictions_array)
   if predicted_label == true_label:
